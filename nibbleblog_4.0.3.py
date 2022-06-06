@@ -88,7 +88,7 @@ if __name__ == "__main__":
     parser.add_argument('-t', metavar='<Target admin URL>', help='admin target/host URL, E.G: http://nibblesrce.com/blog/admin.php', required=True)
     parser.add_argument('-u', metavar='<user>', help='Username', required=True)
     parser.add_argument('-p', metavar='<password>', help="Password", required=True)
-    parser.add_argument('-rce', metavar='<Remote Code Execution>', help='-rce whoami', required=False)
+    parser.add_argument('-rce', metavar='<Remote Code Execution>', help='-rce whoami', required=True)
     parser.add_argument('-shell',action='store_true',help='Pseudo-Shell option for continous rce', required=False)
     args = parser.parse_args()
 
