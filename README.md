@@ -1,8 +1,4 @@
-# Project Title
-
-Nibbleblog 4.0.3 File Upload Authenticated Remote Code Execution (RCE)
-
-## Description
+# Nibbleblog 4.0.3 File Upload RCE
 
 A python3 script for Nibbleblog 4.0.3 File Upload Authenticated Remote Code Execution (RCE)
 
